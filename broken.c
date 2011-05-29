@@ -5,27 +5,32 @@ void qinsert(char* buff, char ch)
 char *ptr = buff+1;
 while(*ptr != '\0')
 *buff++=*ptr++;
-*ptr = ch;
+*buff = ch;
 } 
 
 int main()
 {
-char str[10], buf[128];
-int last=0,m,flag = 0,max = -1,i=0,j=0,ch;
+char str[1000002], buf[129];
+int last,m,flag,max,i,j,ch,count;
+
 
 	while(1)
 	{
 	scanf("%d",&m);
 	getchar();
+	if(m==0) break;
 	gets(str);
-	printf("%s",str);
 
-	i=0;
-	int count = m; // after init buf filling 
+	last=0,flag = 0,max = -1,i=0,j=0,ch;
+	count = m; // after init buf filling 
+
+	if(strlen(str)<=m)
+	{printf("%d\n",strlen(str));
+	continue;}
+
 	while(i<m)
 	buf[i++]=str[i];
-
-	last=0,flag = 0,max = -1;
+	buf[i]='\0';
 
 	while(str[i]!='\0')
 		{
@@ -36,20 +41,23 @@ int last=0,m,flag = 0,max = -1,i=0,j=0,ch;
 				break;
 				}
 		if(flag==1)
+		{
 		count++;
+		if(count>max) max = count;
+		}
 		else
 			{
 			if(count>max) max = count;
-			count = 0;
+			count = m;
 			last = last+1;
-			qinsert(buf,str[i]);			
+			qinsert(buf,str[i]);
+//			printf("buf status:%s max:%d\n",buf,max);		
 			}
 		flag=0;
+		i++;
 		}
-	printf("%d\nreading buf",max);
-	scanf("%d",&m);
-	printf("string:");
-	gets(str);	
+	printf("%d\n",max);
+
 	}
 
 }
