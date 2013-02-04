@@ -1,0 +1,2 @@
+
+main = print $ proj104
